@@ -25,3 +25,40 @@ def explicacion_del_modelo(N,f,datos, cabecera):
     G = Ridge()
     G.fit(R, Y_perturbada, sample_weight=W)
     return G.get_params()
+
+#Version 2 Cerca 
+def explicacion_del_modelo(N,f,datos, cabecera):
+    X = [] # Muestras perturbadas
+    R = [] # Representaciones
+    W = [] # Distancias entre muestra x y sus perturbaciones
+    for i in range(N):
+        datos_perturbados= perturb(datos, cabecera)
+        w = abs(sum(datos[atributo] - datos_perturbados[atributo] for atributo in range(0, len(datos)-1)))
+        r = [0 if datos_perturbados[atributo] == datos[atributo] else 1 for atributo in range(0,len(datos)-1)]
+        X.append(datos_perturbados)
+        R.append(r)
+        W.append(w)
+    X = np.expand_dims(datos_perturbados, axis=0)
+    Y_perturbada = f.predict(X)
+    G = Ridge()
+    G.fit(R, Y_perturbada, sample_weight=W)
+    pesos = G.coef_
+    # Paso 4: Generación de la explicación
+    return pesos
+
+def explicacion_del_modelo(N,f,datos, cabecera):
+    X = [] # Muestras perturbadas
+    R = [] # Representaciones
+    W = [] # Distancias entre muestra x y sus perturbaciones
+    for i in range(N):
+        datos_perturbados= perturb(datos, cabecera)
+        w = abs(sum(datos[atributo] - datos_perturbados[atributo] for atributo in range(0, len(datos)-1)))
+        r = [0 if datos_perturbados[atributo] == datos[atributo] else 1 for atributo in range(0,len(datos)-1)]
+        X.append(datos_perturbados)
+        R.append(r)
+        W.append(w)
+    X = np.expand_dims(datos_perturbados, axis=0)
+    Y_perturbada = f.predict(X)
+    G = Ridge()
+    G.fit(R, Y_perturbada, sample_weight=W)
+    return G.coef_
