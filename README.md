@@ -1,3 +1,3 @@
 "# Interpretabilidad" 
 
-FALTA RENOMBRAR LOS ATRIBUTOS DE LOS DIFERENTES CSV PARA EL RESOLVER EL CONFLICTO DE LAS METRICAS
+El trabajo ha sido realizado por Alejandro García Sanchez-Hermosilla y Daniel Diañez Suárez.
